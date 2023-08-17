@@ -1,13 +1,5 @@
 pipeline {
-    agent {
-	docker {
-		image 'node:latest'
-		args '-p 3000:3000'
-		}
-	}
-	environment {
-		CI = 'true'
-	}
+    agent any
 
     stages {
        
@@ -22,6 +14,10 @@ pipeline {
                 sh 'npm run build'
             }
         }
-
+	stage('Deploy') {
+	steps {
+		sh 'nom start'
+		}
+	}
 }
 
