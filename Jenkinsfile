@@ -1,16 +1,19 @@
 pipeline {
-    agent any
+    agent {
+	docker {
+		image 'node:latest'
+		args '-p 3000:3000'
+		}
+	}
+	environment {
+		CI = 'true'
+	}
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
+       
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'npm install -g npm@9.8.1'
             }
         }
 
@@ -20,23 +23,5 @@ pipeline {
             }
         }
 
-        stage('Deploy Staging') {
-            when {
-                expression { params.DEPLOY_TO_STAGING == 'true' }
-            }
-            steps {
-                // Deployment to staging server
-            }
-        }
-
-        stage('Deploy Production') {
-            when {
-                expression { params.DEPLOY_TO_PRODUCTION == 'true' }
-            }
-            steps {
-                // Deployment to production server
-            }
-        }
-    }
 }
 
