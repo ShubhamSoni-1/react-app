@@ -5,19 +5,21 @@ pipeline {
        
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'npm install -g npm@9.8.1
+'
             }
         }
 
         stage('Build') {
             steps {
                 sh 'npm run build'
-            }
+           	args '-p 8080:3000'
+		 }
         }
 	stage('Deploy') {
 	steps {
-		sh 'nom start'
+		sh 'npm start'
 		}
 	}
 }
-
+}
