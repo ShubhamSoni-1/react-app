@@ -5,7 +5,7 @@ pipeline {
        
         stage('Install Dependencies') {
             steps {
-                sh 'npm install -g npm@9.8.1'
+                sh 'npm install'
             }
         }
 
